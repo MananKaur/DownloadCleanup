@@ -18,11 +18,11 @@ let year, month;
 let yDest, mDest;
     function cleanup() {
         
-        let src = path.join(require('os').homedir(), 'Downloads')
+        let src = path.join(require('os').homedir(), 'Downloads\\')
         let odest = src;
         let children = childReader(src);
             for (let i = 0; i < children.length; i++) {
-                total++;
+          
                 let childPath = path.join(src, children[i]);
                 cleanupLogic(childPath, odest);
             }
