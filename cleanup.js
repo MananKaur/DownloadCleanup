@@ -1,8 +1,19 @@
+//Importing modules
+
 let fs = require('fs');
+//Node.js file system module allows to work with the file system on your computer.
+
 let path = require('path');
+//Node.js path module is used for handling and transforming file paths
+
 let fse = require('fs-extra');
+//fs-extra adds file system methods that aren't included in the native fs module and adds promise support to the fs methods.
+
 let folderDest = path.join(require('os').homedir(), 'Downloads\\allFolders')
+//The os module provides operating system-related utility methods and properties
+//The os.homedir() method is an inbuilt application programming interface of the os module which is used to get path of the home directory for the current user.
 console.log(folderDest);
+
 let year, month;
 let yDest, mDest;
     function cleanup() {
@@ -19,22 +30,34 @@ let yDest, mDest;
 
     function checkWhetherFile(path_string) {
         return fs.lstatSync(path_string).isFile();
+        //The fs.lstat() method is used to return information about the given symbolic link.
+        //It returns an fs.lstat object which has several properties and methods to get details about the file or directory.
+        //A symbolic link contains a text string followed by the operating system as a path to another file or directory
     }
 
     function childReader(src) {
         let children = fs.readdirSync(src);
+        //The fs.readdirSync() method is used to synchronously read the contents of a given directory.
+        //The method returns an array with all the file names or objects in the directory.
         return children;
     }
 
     function cleanupLogic(src, odest) {
 
         let isFile = checkWhetherFile(src);
+        //If it is a file :
         if (isFile == true) {
             let Name = path.basename(src);
+            // returns the filename part of a file path. 
         
             let extname = path.extname(Name);
+            //returns the extension of a file path
+            
             let eDest = findDestination(extname, odest);
+            
             let {mtime} = fs.statSync(src);
+            //last modified date
+            
             month = (mtime.getMonth());
             year = (mtime.getFullYear())
             yDest = findYear(year, eDest);
@@ -45,7 +68,9 @@ let yDest, mDest;
                 }
                 console.log("file moved");
             })
-        } else {
+       }
+        //If it is a folder put in allFolders named folder.
+        else {
             let fname = path.basename(src);
             console.log(fname);
             if(fname!="Downloads" && fname!="media" && fname!="otherFiles" && fname!="programming" && fname!="text"&& fname!='allFolders'){
